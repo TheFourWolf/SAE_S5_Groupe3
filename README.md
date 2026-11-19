@@ -16,4 +16,4 @@ Ce projet consiste à développer une plateforme web permettant à des chercheur
 ## Contenu du dépôt
 - `docs/` : cahier des charges, recueil des besoins et documentation technique SLURM.
 - `database/` : schéma de la base de données MariaDB.
-- `src/` : code source de l'application (à venir pour les prochains jalons).
+- `src/` : code source de l'application.
