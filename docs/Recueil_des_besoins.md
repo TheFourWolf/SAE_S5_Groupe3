@@ -3,7 +3,6 @@ Projet SAE S5 - Cluster Raspberry Pi (Groupe INFI3)
 
 Document réalisé dans le cadre du cours d'Analyse des Besoins (M. Dufaud) selon le plan en 6 chapitres d'Alistair Cockburn.
 
----
 
 ## 1. Objectif et portée du projet
 
@@ -20,7 +19,6 @@ L'objectif est de mettre en place une interface web permettant de gérer et lanc
 Ce qui est pris en charge par notre plateforme : la gestion des comptes, le calendrier de réservation, la liaison SSH entre le serveur web et le frontal, l'envoi des tâches à SLURM et la récupération des fichiers de sortie.
 Ce qui est hors périmètre : l'écriture des algorithmes de calcul scientifique eux-mêmes (qui sont fournis par les utilisateurs ou réalisés en TP) ainsi que toute notion de facturation ou de gestion financière.
 
----
 
 ## 2. Glossaire
 
@@ -31,7 +29,6 @@ Ce qui est hors périmètre : l'écriture des algorithmes de calcul scientifique
 - SLURM : ordonnanceur chargé de gérer la file d'attente, d'allouer les cœurs demandés et de stopper les calculs qui dépassent le temps prévu.
 - MPI / JavaSocket : outils utilisés dans les programmes pour faire communiquer les processus entre eux pendant le calcul.
 
----
 
 ## 3. Cas d'utilisation
 
@@ -47,7 +44,6 @@ Ce qui est hors périmètre : l'écriture des algorithmes de calcul scientifique
 
 Le détail complet des scénarios (étapes, préconditions et gestion des erreurs) est décrit dans le fichier `Cahier_des_charges.pdf`.
 
----
 
 ## 4. Technologies employées
 
@@ -60,7 +56,7 @@ Le détail complet des scénarios (étapes, préconditions et gestion des erreur
 ### Interfaces avec l'externe
 Le serveur web (RPI 4) communique avec le RPI 5 frontal via SSH (authentification par clés) pour transférer les fichiers et lancer les commandes SLURM (`sbatch`, `squeue`, `scancel`, `sinfo`). Le frontal communique ensuite avec les 4 nœuds de calcul via les services SLURM (`slurmctld` et `slurmd`).
 
----
+
 
 ## 5. Autres exigences
 
@@ -74,7 +70,7 @@ Le projet est réalisé par les 5 membres du groupe INFI3 et découpé en 4 jalo
 ### Sécurité et utilisation
 Les mots de passe sont hachés en base de données et les accès sont séparés selon le rôle (chercheur ou admin). Les utilisateurs n'ont jamais d'accès SSH direct aux Raspberry Pi 5, tout passe par le serveur web. L'interface est accessible directement depuis un navigateur sans rien installer sur le poste client.
 
----
+
 
 ## 6. Aspects humains et organisationnels
 
