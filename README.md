@@ -5,8 +5,6 @@ Groupe : INFI3
 Membres : ABOUALOU Jihan, BABU Achille, CROCHET Thomas, LAPLUYE Antoine, ZERROUK Achraf  
 Clients / Tuteurs : M. Hoguin & M. Dufaud
 
----
-
 ## Présentation
 Ce projet consiste à développer une plateforme web permettant à des chercheurs de réserver des ressources de calcul (cœurs ou nœuds complets) et de lancer des applications distribuées sur un cluster de Raspberry Pi 5 piloté par SLURM.
 
