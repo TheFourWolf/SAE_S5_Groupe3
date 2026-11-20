@@ -27,7 +27,7 @@ Nous avons séparé l'hébergement du site web de la partie calcul pur pour ne p
 | **C2 — Optimiser** | Découpage des tâches en parallèle sur plusieurs cœurs/nœuds, suivi de la charge CPU/RAM et réduction des temps de calcul. | `src/`, `docs/Cahier_des_charges.pdf` |
 | **C3 — Administrer** | Mise en réseau des 6 Raspberry Pi, installation et configuration de SLURM (`slurmctld` / `slurmd`) et sécurisation des échanges SSH par clés. | `docs/Documentation_SLURM.pdf` |
 | **C4 — Gérer** | Modélisation et gestion de la base de données relationnelle MariaDB, blocage des conflits de réservation et sauvegarde des logs d'exécution. | `database/` |
-| **C5 — Conduire** | Rédaction du recueil des besoins (plan d'Alistair Cockburn) et du cahier des charges, analyse des enjeux et suivi des jalons. | `docs/Recueil_des_besoins.md`, `docs/Cahier_des_charges.pdf` |
+| **C5 — Conduire** | Pilotage agile (Scrum en 4 sprints / jalons), rédaction du recueil des besoins (plan d'Alistair Cockburn) et du cahier des charges, analyse des enjeux et suivi du backlog. | `docs/Recueil_des_besoins.md`, `docs/Cahier_des_charges.pdf` |
 | **C6 — Collaborer** | Travail en équipe au sein du Groupe 3, entente avec les autres groupes de la promo pour le partage matériel du cluster, suivi sur GitHub et échanges avec les profs. | Dépôt GitHub, `docs/Recueil_des_besoins.md` |
 
 ## Répartition de l'équipe (Groupe 3)
