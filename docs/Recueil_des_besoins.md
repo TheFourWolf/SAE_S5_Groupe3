@@ -76,11 +76,13 @@ Nous avons séparé l'hébergement web du calcul pur pour ne pas ralentir les n�
 
 ## V./ Chapitre 5 – Autres exigences
 
+*Note méthodologique : afin de garantir une couverture complète et mesurable des exigences non fonctionnelles, les rubriques (b) à (f) ci-dessous s'appuient sur le modèle de qualité produit de la norme **ISO/IEC 25010 (SQuaRE)**.*
+
 ### (a) Processus de développement
 - **i) Qui sont les participants au projet ?**
   Les 5 étudiants du Groupe 3 (INFI3) : ABOUALOU Jihan, BABU Achille, CROCHET Thomas, LAPLUYE Antoine et ZERROUK Achraf, encadrés par M. Dufaud et M. Hoguin.
 - **ii) Quelles valeurs devront être privilégiées ?**
-  La fiabilité des réservations (zéro conflit entre deux utilisateurs), la simplicité de l'interface (pas besoin de connaître les commandes SLURM) et la sécurité des accès aux cartes.
+  La fiabilité des réservations (zéro conflit entre deux utilisateurs), la simplicité de l'interface (pas besoin de maîtriser les commandes SLURM) et la sécurité des accès aux cartes.
 - **iii) Quels retours ou quelle visibilité sur le projet les utilisateurs et commanditaires souhaitent-ils ?**
   Le projet est suivi à travers 4 jalons intermédiaires. L'ensemble des documents et du code est hébergé sur un dépôt GitHub partagé avec les enseignants pour suivre l'avancement en continu.
 - **iv) Que peut-on acheter ? Que doit-on construire ? Qui sont nos concurrents ?**
@@ -92,25 +94,31 @@ Nous avons séparé l'hébergement web du calcul pur pour ne pas ralentir les n�
 - **vi) À quelle dépendance le projet est-il soumis ?**
   L'avancement dépend de l'accès physique au cluster en salle serveur, de la mise à disposition de l'image système commune par les profs, et de la bonne coordination entre tous les groupes de la promo pour partager la maquette sans se gêner.
 
-### (b) Règles métier
-- **Exclusivité des ressources :** une fois qu'un chercheur a réservé des cœurs ou des nœuds sur un créneau, ces ressources sont bloquées en base de données et personne d'autre ne peut les réserver sur la même plage horaire.
+### (b) Règles métier et adéquation fonctionnelle (ISO/IEC 25010 – 4.2.1)
+- **Exclusivité des ressources :** une fois qu'un chercheur a réservé des cœurs ou des nœuds sur un créneau, ces ressources sont verrouillées en base de données et personne d'autre ne peut les réserver sur la même plage horaire.
 - **Arrêt automatique au dépassement du temps (Timeout) :** si un calcul dépasse la durée maximale prévue lors de la réservation, SLURM le coupe automatiquement pour libérer les machines pour le suivant, tout en sauvegardant les logs déjà générés.
 - **Confidentialité des résultats :** chaque utilisateur ne voit et ne télécharge que ses propres calculs et résultats (seul l'administrateur a une vue globale).
 
-### (c) Performances
-- Le transfert d'un script et son enregistrement dans la file d'attente SLURM doivent prendre moins de 5 secondes.
-- Le site web doit rester fluide (affichage des pages en moins de 2 secondes) et ne jamais bloquer pendant qu'un calcul tourne sur les Raspberry Pi 5.
+### (c) Performances et compatibilité (ISO/IEC 25010 – 4.2.2 & 4.2.3)
+- **Comportement temporel (*Time behaviour*) :** le transfert d'un script et son enregistrement dans la file d'attente SLURM doivent prendre moins de 5 secondes ; l'affichage des pages web doit répondre en moins de 2 secondes sans bloquer pendant qu'un calcul tourne.
+- **Utilisation des ressources (*Resource utilization*) :** le déport du serveur web et de MariaDB sur le Raspberry Pi 4 permet de réserver 100 % du CPU et de la RAM des 5 Raspberry Pi 5 aux calculs distribués.
+- **Coexistence (*Co-existence*, section 4.2.3.1) :** la tour de Raspberry Pi 5 étant partagée entre tous les groupes de la promo, notre application doit coexister sans perturber les autres équipes (dossiers de travail isolés dans `/home/groupe3`, ports web distincts, aucun écrasement de la configuration SLURM commune).
+- **Interopérabilité (*Interoperability*) :** communication standardisée via SSH/SCP entre le backend Python/Flask et les commandes SLURM du frontal.
 
-### (d) Opérations, sécurité, documentation
-- **Sécurité :** mots de passe hachés en base de données, connexion SSH vers le frontal via un compte restreint par clés, et aucun accès direct au terminal des Raspberry Pi pour les utilisateurs.
-- **Opérations :** les sorties standard et les erreurs de SLURM sont enregistrées automatiquement pour permettre à l'utilisateur de déboguer son script en cas de plantage.
+### (d) Opérations, fiabilité et sécurité (ISO/IEC 25010 – 4.2.5 & 4.2.6)
+- **Fiabilité et tolérance aux pannes (*Reliability / Fault tolerance*) :** en cas de plantage d'un programme utilisateur (boucle infinie ou erreur de code), SLURM isole l'incident au job concerné sans faire tomber le frontal ni bloquer les réservations suivantes, tout en conservant les logs d'erreur (*Recoverability*).
+- **Sécurité (*Security*) :**
+  - *Confidentialité et authenticité :* mots de passe hachés en base de données, connexion SSH vers le frontal via un compte restreint par échange de clés, et aucun accès direct au terminal des Raspberry Pi pour les utilisateurs.
+  - *Traçabilité (`Accountability`) :* chaque exécution (`slurm_job_id`) est enregistrée en base et reliée à l'utilisateur et à la réservation correspondante.
 - **Documentation :** le dépôt contient le recueil des besoins, le cahier des charges, le script SQL de la base et la documentation de mise en place de SLURM.
 
-### (e) Utilisation et utilisabilité
-L'interface doit être claire et compréhensible immédiatement : l'utilisateur choisit simplement son programme, le nombre de cœurs et la durée, et le site génère tout seul le script SLURM correspondant. L'état des calculs (`En attente`, `En cours`, `Terminé`, `Erreur`) doit être visible sans recharger manuellement les configurations.
+### (e) Utilisation et utilisabilité (ISO/IEC 25010 – 4.2.4)
+- **Facilité d'apprentissage (*Learnability*) :** l'interface doit être claire et compréhensible immédiatement sans formation SLURM. L'état des calculs (`En attente`, `En cours`, `Terminé`, `Erreur`) est affiché clairement.
+- **Protection contre les erreurs utilisateurs (*User error protection*) :** le chercheur choisit simplement son programme, le nombre de cœurs et la durée dans le formulaire web ; l'application vérifie la cohérence des bornes et génère automatiquement le script `sbatch` valide.
 
-### (f) Maintenance et portabilité
-L'utilisation de Python/Flask et MariaDB permet de redéployer facilement l'application sur d'autres machines Linux si besoin. La séparation entre le site web, la base de données et SLURM permet aussi d'ajouter de nouveaux nœuds de calcul sans toucher au code de l'interface.
+### (f) Maintenance et portabilité (ISO/IEC 25010 – 4.2.7 & 4.2.8)
+- **Modularité et analysabilité (*Maintainability*) :** la séparation nette entre le frontend, le backend Flask, la base MariaDB et les scripts SLURM permet de corriger un composant sans casser les autres, et les journaux `stdout`/`stderr` facilitent le diagnostic en cas d'erreur.
+- **Adaptabilité et installabilité (*Portability*) :** le choix de Python/Flask et MariaDB permet de redéployer facilement l'application sur d'autres machines Linux (ARM ou x86) et d'ajouter de nouveaux nœuds de calcul simplement en les déclarant dans la table `Machines`.
 
 ### (g) Questions non résolues ou reportées à plus tard
 - La taille maximale autorisée pour l'upload de gros fichiers de données sera fixée lors des tests sur le matériel au Jalon 3.
