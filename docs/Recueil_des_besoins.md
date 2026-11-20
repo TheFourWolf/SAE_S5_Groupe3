@@ -83,14 +83,14 @@ Nous avons séparé l'hébergement web du calcul pur pour ne pas ralentir les n�
   Les 5 étudiants du Groupe 3 (INFI3) : ABOUALOU Jihan, BABU Achille, CROCHET Thomas, LAPLUYE Antoine et ZERROUK Achraf, encadrés par M. Dufaud et M. Hoguin.
 - **ii) Quelles valeurs devront être privilégiées ?**
   La fiabilité des réservations (zéro conflit entre deux utilisateurs), la simplicité de l'interface (pas besoin de maîtriser les commandes SLURM) et la sécurité des accès aux cartes.
-- **iii) Quels retours ou quelle visibilité sur le projet les utilisateurs et commanditaires souhaitent-ils ?**
-  Le projet est suivi à travers 4 jalons intermédiaires. L'ensemble des documents et du code est hébergé sur un dépôt GitHub partagé avec les enseignants pour suivre l'avancement en continu.
+**iii) Quels retours ou quelle visibilité sur le projet les utilisateurs et commanditaires souhaitent-ils ?**
+  Le projet est conduit selon une approche agile inspirée de **Scrum**, découpée en **4 sprints** alignés sur les 4 jalons intermédiaires. Chaque fin de sprint donne lieu à une revue (*Sprint Review*) avec les commanditaires (M. Dufaud et M. Hoguin) pour valider l'incrément   livré et ajuster les priorités du backlog. L'avancement est suivi en continu via le dépôt GitHub.
 - **iv) Que peut-on acheter ? Que doit-on construire ? Qui sont nos concurrents ?**
   - *Existant / Open-source réutilisé :* le matériel fourni par l'IUT (1 RPI 4 et 5 RPI 5), SLURM, MariaDB, Flask et les bibliothèques MPI/Java.
   - *À développer :* la base de données, l'interface web complète, le module de communication SSH/SLURM et les scripts d'intégration des calculs.
   - *Alternatives existantes :* des outils comme Open OnDemand existent dans le monde professionnel, mais ils sont beaucoup trop lourds et complexes à mettre en place sur un petit cluster pédagogique de Raspberry Pi.
 - **v) Quels sont les autres exigences du processus ?**
-  Un dépôt GitHub organisé proprement (`docs/`, `database/`, `src/`), une documentation technique claire pour l'installation de SLURM et des tests réels sur la tour de Raspberry Pi avant la soutenance.
+  Utilisation d'un backlog produit priorisé (issues GitHub), points hebdomadaires d'équipe (*Daily / Weekly Scrum*) pour lever les blocages, dépôt GitHub structuré (`docs/`, `database/`, `src/`), documentation technique claire pour SLURM et tests d'intégration sur le       matériel avant chaque fin de sprint.
 - **vi) À quelle dépendance le projet est-il soumis ?**
   L'avancement dépend de l'accès physique au cluster en salle serveur, de la mise à disposition de l'image système commune par les profs, et de la bonne coordination entre tous les groupes de la promo pour partager la maquette sans se gêner.
 
