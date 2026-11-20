@@ -9,7 +9,7 @@ Projet SAE S5 - Département Informatique (IUT de Vélizy-Rambouillet)
 L'objectif de ce projet est de créer une application web qui permet à des chercheurs de réserver facilement de la puissance de calcul (des cœurs ou des nœuds complets) et de lancer leurs programmes distribués sur un cluster de Raspberry Pi 5 géré par SLURM, sans avoir à se connecter manuellement en SSH sur chaque machine.
 
 ## Architecture matérielle et logicielle
-Nous avons séparé l'hébergement du site web de la partie calcul pur pour ne pas ralentir les Raspberry Pi pendant l'exécution des programmes :
+Nous avons séparé l'hébergement du site web de la partie calcul pur pour ne pas ralentir les Raspberry Pi pendant l'exécution des programmes:
 - **Serveur web (1 x Raspberry Pi 4)** : héberge l'interface web (HTML, CSS, JavaScript), le serveur backend en Python (Flask) ainsi que la base de données MariaDB.
 - **Nœud frontal (1 x Raspberry Pi 5)** : sert de porte d'entrée au cluster. Il reçoit les instructions en SSH depuis le serveur web et gère la file d'attente via l'ordonnanceur SLURM.
 - **Ferme de calcul (4 x Raspberry Pi 5)** : exécute les programmes parallèles en Python (avec MPI) ou en Java (JavaSocket / API Concurrent).
@@ -35,8 +35,8 @@ Pour bien couvrir l'ensemble des aspects techniques et organisationnels tout en 
 
 | Membre | Rôle principal | Missions concrètes |
 | :--- | :--- | :--- |
-| **ABOUALOU Jihan** | Cheffe de projet & Documentation | Suivi des jalons, rédaction du recueil des besoins et du cahier des charges, échanges avec M. Dufaud et M. Hoguin, et coordination avec les autres groupes de la promo. |
-| **BABU Achille** | Réseau & Administration SLURM | Configuration système et réseau des Raspberry Pi, installation de SLURM sur le frontal et les nœuds, gestion des clés SSH et documentation SLURM. |
-| **CROCHET Thomas** | Base de données & Backend | Création et gestion de la base MariaDB (6 tables), développement du serveur Flask et logique de vérification des créneaux de réservation. |
+| **ABOUALOU Jihan** | Documentation | Suivi des jalons, rédaction du recueil des besoins et du cahier des charges, échanges avec M. Dufaud et M. Hoguin, et coordination avec les autres groupes de la promo. |
+| **BABU Achille** | Calcul distribué & Tests | Développement des programmes parallèles (Python/MPI et JavaSocket), liaison avec les commandes `sbatch` / `squeue` et tests sur la tour de Raspberry Pi. |
+| **CROCHET Thomas** | Réseau & Administration SLURM | Configuration système et réseau des Raspberry Pi, installation de SLURM sur le frontal et les nœuds, gestion des clés SSH & Documentation_SLURM |
 | **LAPLUYE Antoine** | Interface Web & Ergonomie | Création des pages web (HTML/CSS/JS), tableau de bord de suivi de l'état des machines et affichage des résultats et logs. |
-| **ZERROUK Achraf** | Calcul distribué & Tests | Développement des programmes parallèles (Python/MPI et JavaSocket), liaison avec les commandes `sbatch` / `squeue` et tests sur la tour de Raspberry Pi. |
+| **ZERROUK Achraf** | Base de données & Backend | Création et gestion de la base MariaDB (6 tables), développement du serveur Flask et logique de vérification des créneaux de réservation. |
