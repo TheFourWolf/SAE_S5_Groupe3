@@ -68,7 +68,7 @@ Les cas d'utilisation détaillés (avec préconditions, déroulé normal et cas 
 Nous avons séparé l'hébergement web du calcul pur pour ne pas ralentir les nœuds pendant l'exécution des programmes :
 - **Serveur web (sur Raspberry Pi 4) :** backend en Python avec le framework Flask (léger et bien adapté au Raspberry Pi) et frontend en HTML, CSS et JavaScript.
 - **Base de données (sur Raspberry Pi 4) :** MariaDB avec 6 tables (`Users`, `Machines`, `Catalog_Calculs`, `Reservations`, `Reservation_Machines`, `Executions_Calculs`) pour gérer les comptes, les créneaux et l'historique des jobs.
-- **Cluster de calcul (sur les 5 Raspberry Pi 5) :** image Linux commune déployée sur toutes les cartes, ordonnanceur SLURM (`slurmctld` sur le frontal, `slurmd` sur les 4 nœuds), et environnements Python (avec `mpi4py`) et Java (JavaSocket / API Concurrent).
+- **Cluster de calcul (sur les 5 Raspberry Pi 5) :** image Linux commune déployée sur toutes les cartes, ordonnanceur SLURM (`slurmctld` sur le frontal, `slurmd` sur les 4 nœuds), et environnements Python (avec `mpi4py`) et Java (JavaSocket / API Concurrent). Le détail complet de l'installation et de la configuration de SLURM est disponible dans le fichier `docs/Documentation_SLURM.pdf` (à adapter en `.md` si c'est un fichier Markdown).
 
 ### (b) Avec quels systèmes ce système s'interfacera-t-il et avec quelles exigences ?
 - **Serveur Web (RPI 4) vers Frontal (RPI 5) :** connexion sécurisée en SSH/SCP par échange de clés (sans mot de passe en clair) pour envoyer les scripts, lancer les commandes SLURM (`sbatch`, `squeue`, `scancel`, `sinfo`) et récupérer les fichiers de logs et de résultats.
