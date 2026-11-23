@@ -16,8 +16,6 @@ SLURM joue le rôle de chef d'orchestre sur le cluster :
 | **1 × Raspberry Pi 5** | `rpi5-frontal` | **Nœud frontal** : point d'entrée du cluster et contrôleur | `slurmctld`, `munge`, serveur SSH |
 | **4 × Raspberry Pi 5** | `rpi5-node1` à `4` | **Nœuds de calcul** : exécutent les programmes parallèles | `slurmd`, `munge`, Python/MPI, Java |
 
----
-
 ## 2. Préparation du réseau et des machines
 Avant d'installer SLURM, toutes les cartes du cluster doivent pouvoir communiquer par leur nom et partager exactement la même heure.
 
@@ -49,7 +47,6 @@ timedatectl status
 ### 2.3 Isolation de notre groupe sur la maquette partagée
 La tour de Raspberry Pi 5 étant partagée entre plusieurs groupes de la promotion (exigence de *coexistence* ISO/IEC 25010), nous utilisons un répertoire dédié `/home/groupe3` afin de ne pas mélanger nos scripts et nos résultats avec ceux des autres équipes.
 
----
 
 ## 3. Installation des paquets nécessaires
 Sur **les 5 Raspberry Pi 5** (frontal et nœuds de calcul), on met à jour le système et on installe SLURM, le service d'authentification MUNGE, ainsi que les bibliothèques nécessaires aux calculs distribués en Python (MPI) et en Java :
@@ -58,8 +55,6 @@ Sur **les 5 Raspberry Pi 5** (frontal et nœuds de calcul), on met à jour le sy
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y slurm-wlm munge libmunge-dev python3-mpi4py openmpi-bin default-jdk
 ```
-
----
 
 ## 4. Sécurisation des échanges internes avec MUNGE
 Pour éviter qu'une machine extérieure ne puisse envoyer de fausses commandes aux nœuds de calcul, SLURM utilise **MUNGE**. Ce service chiffre et signe les messages entre le frontal et les nœuds grâce à une clé secrète partagée.
@@ -94,7 +89,6 @@ munge -n | ssh rpi5-node1 unmunge
 ```
 La commande doit retourner `STATUS: Success (0)`.
 
----
 
 ## 5. Configuration de SLURM (`slurm.conf`)
 Le comportement du cluster est défini dans le fichier `/etc/slurm/slurm.conf`. Ce fichier doit être **strictement identique** sur le frontal et sur les 4 nœuds de calcul.
@@ -171,8 +165,6 @@ PartitionName=debug Nodes=rpi5-node[1-4] Default=YES MaxTime=02:00:00 State=UP
 sudo scontrol update NodeName=rpi5-node[1-4] State=RESUME
 ```
 
----
-
 ## 6. Liaison entre le Serveur Web (RPI 4) et le Frontal (RPI 5)
 Pour respecter l'exigence de sécurité du *Recueil des besoins* (aucun utilisateur n'a accès directement au terminal des Raspberry Pi), seul le backend Python/Flask du Raspberry Pi 4 communique avec le frontal via une connexion **SSH authentifiée par clé asymétrique**.
 
@@ -187,8 +179,6 @@ ssh-copy-id -i ~/.ssh/id_cluster_groupe3.pub pi@rpi5-frontal
 # Création de l'arborescence de travail du Groupe 3 sur le frontal
 ssh -i ~/.ssh/id_cluster_groupe3 pi@rpi5-frontal "mkdir -p /home/groupe3/{scripts,inputs,outputs,logs}"
 ```
-
----
 
 ## 7. Fonctionnement : comment l'application pilote SLURM
 Lorsqu'un chercheur utilise l'interface web (cas d'utilisation `UC-0`, `UC-1`, `UC-3` du *Cahier des charges*), le backend Flask traduit ses actions en commandes SLURM exécutées à distance via SSH :
@@ -215,8 +205,6 @@ Si un chercheur réserve **2 nœuds** et **8 cœurs** pendant **15 minutes maxim
 mpirun -np 8 python3 /home/groupe3/scripts/calcul_pi.py /home/groupe3/inputs/data_42.txt > /home/groupe3/outputs/res_42.txt
 ```
 *Note : si le programme ne s'est pas terminé au bout des 15 minutes (`--time=00:15:00`), SLURM l'arrête automatiquement pour libérer les ressources pour le chercheur suivant, tout en conservant les logs générés dans `exec_42.out` et `exec_42.err`.*
-
----
 
 ## 8. Résolution des pannes fréquentes
 - **Un nœud passe en état `down*` dans `sinfo` :** vérifier que les services `slurmd` et `munge` sont actifs sur la carte concernée (`sudo systemctl status slurmd munge`) et vérifier l'heure système (`timedatectl`).
