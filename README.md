@@ -35,8 +35,8 @@ Pour bien couvrir l'ensemble des aspects techniques et organisationnels tout en 
 
 | Membre | Rôle principal | Missions concrètes |
 | :--- | :--- | :--- |
-| **ABOUALOU Jihan** | Documentation | Suivi des jalons, rédaction du recueil des besoins et du cahier des charges, échanges avec M. Dufaud et M. Hoguin, et coordination avec les autres groupes de la promo. |
+| **ABOUALOU Jihan** | Documentation | Suivi des jalons, rédaction du recueil des besoins et du cahier des charges. |
 | **BABU Achille** | Calcul distribué & Tests | Développement des programmes parallèles (Python/MPI et JavaSocket), liaison avec les commandes `sbatch` / `squeue` et tests sur la tour de Raspberry Pi. |
-| **CROCHET Thomas** | Réseau & Administration SLURM | Configuration système et réseau des Raspberry Pi, installation de SLURM sur le frontal et les nœuds, gestion des clés SSH & Documentation_SLURM |
+| **CROCHET Thomas** | Réseau & Administration SLURM | Configuration système et réseau des Raspberry Pi, installation de SLURM sur le frontal et les nœuds, gestion des clés SSH & Documentation_SLURM et coordination avec les autres groupes de la promo. |
 | **LAPLUYE Antoine** | Interface Web & Ergonomie | Création des pages web (HTML/CSS/JS), tableau de bord de suivi de l'état des machines et affichage des résultats et logs. |
 | **ZERROUK Achraf** | Base de données & Backend | Création et gestion de la base MariaDB (6 tables), développement du serveur Flask et logique de vérification des créneaux de réservation. |
